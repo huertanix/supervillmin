@@ -1,6 +1,6 @@
 supervillmin
 ============
-**NOTE: This is experimental, incomplete, and broken. Don't use this for srs bsns.**
+**NOTE: This is experimental, incomplete, and broken. Don't use this for srs bsns, but feel free to use it for evil.**
 
 Supervillmin is a supervillain-friendly version of Douglas Crockford's JSMin, the JavaScript Minification Filter. During a bout of CryptoCat hacking at WSJ Transparency Weekend in New York in 2012, it was discovered that JSMin was technically not completely Free software, due to this clause:
 
@@ -11,6 +11,7 @@ This clause restricts the use of JSMin from the supervillain community, and we a
 Usage
 -----
 Simply run the `supervillmin` command and pass in the locations of the .js files you wish to combine and compress:
+
     ./supervillmin.rb uncompressed_script.js more_uncompressed_script.js even_more_uncompressed_script.js
 This will create a combined/compressed file named `build.js` which you can then move and rename to your particular amusement.
 
