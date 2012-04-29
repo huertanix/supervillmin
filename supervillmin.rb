@@ -39,8 +39,18 @@ else
   # TODO: Conditionally replace spaces with nothingness according to JSMin rules:
   # "It omits spaces except when a space is preceded and followed by a non-ASCII character or 
   #by an ASCII letter or digit, or by one of these characters: \ $ _"
-  # hmmm... x20 == 32 dec, x7E == 126 dec, should be 126 through whatev upper limit
-  compressed_js = compressed_js.gsub(/[^[\x20-\x7Ea-zA-Z0-9\$\\_]] [^[\x20-\x7Ea-zA-Z0-9\$\\_]]/, "")
+  # hmmm... x20 == 32 dec, x7E == 126 dec, should be > 126, upper limit == 255/xFF?
+  #compressed_js = compressed_js.gsub(/[^[\x20-\x7Ea-zA-Z0-9\$\\_]] [^[\x20-\x7Ea-zA-Z0-9\$\\_]]/, "")
+  compressed_js = compressed_js.gsub(/[^[\x20-\x7Ea-zA-Z0-9\$\\_]] [^[\x20-\x7Ea-zA-Z0-9\$\\_]]/) { 
+    |match| match.gsub(/ /, "") # Yo dawg...
+  }
+  # "A linefeed is not omitted if it precedes a non-ASCII character or an ASCII letter or digit or one of these characters:
+  # \ $ _ { [ ( + - 
+  # and if it follows a non-ASCII character or an ASCII letter or digit or one of these characters: 
+  # \ $ _ } ] ) + - " '
+  compressed_js = compressed_js.gsub(/[^[\x20-\x7E\$_\}\]\)\+\-"'\\]]\n[^[\x20-\x7E\$_\{\[\(\+\-\\]]/) {
+    |match| match.gsub(/\n/, "")
+  }
   
   puts compressed_js
   
